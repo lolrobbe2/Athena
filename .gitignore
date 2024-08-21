@@ -370,3 +370,4 @@ bin-int/
 scripts/__pycache__/
 *.vcxproj
 *.sln
+vendor/
