@@ -43,7 +43,7 @@ namespace athena
 	class buffer 
 	{
 	public:
-
+#pragma region write
 		void writeData(const char* data, size_t size);
         const char* readData(size_t size);
 		void setPointerPosition(size_t size);
@@ -69,11 +69,21 @@ namespace athena
             T::serialize(this, object);
         }
 
+        template<typename T>
+        void writeArray(const std::vector<T>& vector)
+        {
+            size_t vectorSize = vector.size();
+
+            writeData((const char*)&vectorSize, sizeof(size_t));
+            for (size_t i = 0; i < vector.size(); i++)
+                writeObject(vector[i]);
+        }
+#pragma endregion
         static void serialize(buffer* dstBuffer,const buffer& srcBuffer)
         {
             dstBuffer->writeData((const char*)srcBuffer.m_data.data(), srcBuffer.size());
         }
-
+#pragma region read
         template<typename T>
         typename std::enable_if<std::is_trivially_copyable<T>::value,T>::type
             readObject() {
@@ -83,9 +93,17 @@ namespace athena
 
             T* p_struct = (T*)malloc(structSize);
             const char* p_src = readData(storedStructSize);
-            memcpy_s(p_struct, structSize,p_src , structSize);
+
+            if (structSize > storedStructSize)
+            {
+                memcpy_s(reinterpret_cast<char*>(p_struct), storedStructSize, p_src, storedStructSize);
+                memset(reinterpret_cast<char*>(p_struct) + storedStructSize, 0, structSize - storedStructSize);
+            }
+            else
+                memcpy_s(reinterpret_cast<char*>(p_struct), structSize, p_src, structSize);
+
             
-            delete p_src;
+            delete[] p_src;
             return *p_struct;
             
         }
@@ -99,6 +117,20 @@ namespace athena
             // Call the serialize method on the object
            return T::deserialize(this);
         }
+
+        template<typename T>
+        std::vector<T>& readArray()
+        {
+            std::vector<T>* dstVector = new std::vector<T>();
+
+            size_t storedArraySize = *(size_t*)readData(sizeof(size_t));
+
+            for (size_t i = 0; i < storedArraySize; i++)
+                dstVector->push_back(readObject<T>());
+
+            return *dstVector;
+        }
+#pragma endregion
         uint8_t* data() { return m_data.data(); }
 		operator size_t() const { return m_data.size(); };
 	protected:

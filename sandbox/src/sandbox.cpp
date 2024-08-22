@@ -2,10 +2,14 @@
 
 #include <athena.h>
 #include <iostream>
+//represents old version
 struct header
 {
 	const char test[13] = "helping hand";
 };
+
+//represents new version
+
 struct header2
 {
 	const char test[13] = "helping hand";
@@ -14,17 +18,20 @@ struct header2
 int main()
 {
 	athena::buffer buf;
+	
+	std::vector<header> headers;
+	headers.resize(30);
 
-	for (size_t i = 0; i < 30; i++)
-	{
-		buf.writeObject(header2());
-	}
+	buf.writeArray(headers);
+
 	athena::compressedBuffer compressed { buf };
 
 	athena::buffer decompressedBuf = compressed.decompress();
 
+	std::vector<header2> headersDecompressed = decompressedBuf.readArray<header2>();
+
 	for (size_t i = 0; i < 30; i++)
 	{
-		std::cout << decompressedBuf.readObject<header>().test << std::endl;
+		std::cout << headersDecompressed[i].test << std::endl;
 	}
 }
