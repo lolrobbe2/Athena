@@ -13,6 +13,11 @@ struct header2
 	const char test[13] = "helping hand";
 	size_t size = 250;
 };
+
+struct backHeader 
+{
+	const char head[5] = "LPRJ";
+};
 int main()
 {
 	athena::buffer buf;
@@ -21,7 +26,7 @@ int main()
 	headers.resize(30);
 
 	buf.writeArray(headers);
-
+	buf.writeObject(backHeader());
 	athena::compressedBuffer compressed { buf };
 
 	athena::buffer decompressedBuf = compressed.decompress();
@@ -32,4 +37,5 @@ int main()
 	{
 		std::cout << headersDecompressed[i].test << std::endl;
 	}
+	std::cout << decompressedBuf.readObject<backHeader>().head << std::endl;
 }
