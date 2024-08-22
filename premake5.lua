@@ -126,7 +126,10 @@ project "sandbox"
 
     targetdir("%{wks.location}/bin/" .. outputdir .. "/x64/%{prj.name}")
     objdir("%{wks.location}/bin-int/" .. outputdir .. "/x64/%{prj.name}")
-
+    includedirs
+    {
+        "%{IncludeDir.Athena}"
+    }
     links
     {
         "Athena"

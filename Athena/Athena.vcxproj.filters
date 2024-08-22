@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="exceptions">
+      <UniqueIdentifier>{67C00D32-5378-4F7F-BC7F-28DBA856EA6F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="streams">
+      <UniqueIdentifier>{E44707AF-5027-864A-593F-1121C59DECAB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="streams\writers">
+      <UniqueIdentifier>{43BC3442-AF47-A206-B858-25FB2463FE06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="util">
+      <UniqueIdentifier>{43339F7C-2F6A-A00D-D856-8610C46C1C0F}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\athena.h" />
+    <ClInclude Include="src\core.h" />
+    <ClInclude Include="src\exceptions\indexBoundsException.h">
+      <Filter>exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="src\streams\writers\streamWriter.h">
+      <Filter>streams\writers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\buffer.h">
+      <Filter>util</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\util\buffer.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

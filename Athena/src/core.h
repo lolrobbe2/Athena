@@ -7,6 +7,8 @@
 		#else
 		#define AT_API __declspec(dllimport)
 		#endif // AT_BUILD_DLL
+	#else
+		#define AT_API
 	#endif // AT_CPP_API
 	#ifdef AT_C_API
 		#define AT_EXTERN_START extern "C" {
