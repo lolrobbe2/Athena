@@ -1,12 +1,33 @@
 #pragma once
-#include <vector>
 #ifndef BUFFER
 #define BUFFER
+#include <vector>
+#include <type_traits>
+
 namespace athena
 {
+    class buffer;
+    // Trait to check if T has a member function serialize with the given signature
+    template <typename T>
+    struct has_serialize_method
+    {
+    private:
+        // Helper template to check if the serialize method exists and has the correct signature
+        template <typename U>
+        static auto test(int) -> decltype(std::declval<U>().serialize(std::declval<athena::buffer*>(), std::declval<const U&>()), void(), std::true_type{});
+
+        template <typename>
+        static std::false_type test(...);
+
+    public:
+        using type = decltype(test<T>(0));
+        static constexpr bool value = type::value;
+    };
+
 	class buffer 
 	{
 	public:
+
 		void writeData(const char* data, size_t size);
 		void setPointerPosition(size_t size);
 
@@ -22,7 +43,7 @@ namespace athena
         typename std::enable_if<!std::is_trivially_copyable<T>::value>::type
             writeObject(const T& object) {
             // Ensure that T has a serialize method
-            static_assert(std::is_same_v<decltype(&T::serialize), void(*)(athena::buffer*, const T&)>,
+            static_assert(has_serialize_method<T>::value,
                 "T must have a serialize function with signature void (athena::buffer*, const T&)");
 
             // Call the serialize method on the object
