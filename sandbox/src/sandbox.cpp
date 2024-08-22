@@ -12,5 +12,11 @@ struct header2
 };
 int main()
 {
+	athena::buffer buf;
 
+	for (size_t i = 0; i < 30; i++)
+	{
+		buf.writeObject(header());
+	}
+	athena::compressedBuffer compressed { buf };
 }
