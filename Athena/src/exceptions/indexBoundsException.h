@@ -18,7 +18,7 @@ namespace athena
 			{
 				std::cerr << "[Athena] indexOutOfBoundsException: " << msg << std::endl;
 			}
-			~indexOutOfBoundsException();
+			virtual ~indexOutOfBoundsException() { };
 
 		private:
 

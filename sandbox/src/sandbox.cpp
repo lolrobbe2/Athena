@@ -12,13 +12,5 @@ struct header2
 };
 int main()
 {
-	athena::buffer buf;
-	athena::buffer buf2;
-	athena::buffer buf3;
 
-	buf.writeObject(header());
-	buf2.writeObject(header2());
-
-	buf3.writeObject(buf);
-	buf3.writeObject(buf2);
 }

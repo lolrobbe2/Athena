@@ -26,10 +26,21 @@
     <ClInclude Include="src\util\buffer.h">
       <Filter>util</Filter>
     </ClInclude>
+    <ClInclude Include="src\streams\compression\thirdparty\lz4.h" />
+    <ClInclude Include="src\streams\compression\thirdparty\lz4frame.h" />
+    <ClInclude Include="src\streams\compression\thirdparty\lz4hc.h" />
+    <ClInclude Include="src\streams\compression\thirdparty\xxhash.h" />
+    <ClInclude Include="src\streams\compression\compressedBuffer.h" />
+    <ClInclude Include="src\exceptions\compressionException.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\util\buffer.cpp">
       <Filter>util</Filter>
     </ClCompile>
+    <ClCompile Include="src\streams\compression\thirdparty\lz4.c" />
+    <ClCompile Include="src\streams\compression\thirdparty\lz4frame.c" />
+    <ClCompile Include="src\streams\compression\thirdparty\xxhash.c" />
+    <ClCompile Include="src\streams\compression\thirdparty\lz4hc.c" />
+    <ClCompile Include="src\streams\compression\compressedBuffer.cpp" />
   </ItemGroup>
 </Project>

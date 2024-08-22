@@ -21,5 +21,9 @@
 #if !defined(AT_C_API) && !defined(AT_CPP_API)
 	#error an api type needs to be specified see python build.py -h (AT_C_API or AT_CPP_API)
 #endif
+#ifndef STRINGYFY
+#define STRINGIFY(x) #x
+#endif // !STRINGYFY
+
 #endif // !CORE
 

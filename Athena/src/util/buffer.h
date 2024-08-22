@@ -24,11 +24,28 @@ namespace athena
         static constexpr bool value = type::value;
     };
 
+    template <typename T>
+    struct has_deserialize_method
+    {
+    private:
+        // Helper template to check if the serialize method exists and has the correct signature
+        template <typename U>
+        static auto test(int) -> decltype(std::declval<U>().serialize(std::declval<athena::buffer*>()), std::declval<U&>(), std::true_type{});
+
+        template <typename>
+        static std::false_type test(...);
+
+    public:
+        using type = decltype(test<T>(0));
+        static constexpr bool value = type::value;
+    };
+
 	class buffer 
 	{
 	public:
 
 		void writeData(const char* data, size_t size);
+        const char* readData(size_t size);
 		void setPointerPosition(size_t size);
 
         const size_t size() const { return m_data.size(); };
@@ -49,12 +66,31 @@ namespace athena
             // Call the serialize method on the object
             T::serialize(this, object);
         }
+
         static void serialize(buffer* dstBuffer,const buffer& srcBuffer)
         {
             dstBuffer->writeData((const char*)srcBuffer.m_data.data(), srcBuffer.size());
         }
+
+        template<typename T>
+        typename std::enable_if<std::is_trivially_copyable<T>::value,T>::type
+            readObject() {
+            return *(T*)readData(sizeof(T));
+        }
+
+        template<typename T>
+        typename std::enable_if<!std::is_trivially_copyable<T>::value,T>::type
+            readObject() {
+            // Ensure that T has a serialize method
+            static_assert(has_deserialize_method<T>::value,
+                "T must have a deserialize function with signature T& (athena::buffer*)");
+
+            // Call the serialize method on the object
+           return T::deserialize(this);
+        }
+        uint8_t* data() { return m_data.data(); }
 		operator size_t() const { return m_data.size(); };
-	private:
+	protected:
 		size_t m_pointerPosition = 0; //this allows for data to be inserted in the middle of the buffer!
 		std::vector<uint8_t> m_data; //we use data vector for convenience
 	};
