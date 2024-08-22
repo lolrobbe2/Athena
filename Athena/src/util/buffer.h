@@ -79,10 +79,25 @@ namespace athena
                 writeObject(vector[i]);
         }
 #pragma endregion
-        static void serialize(buffer* dstBuffer,const buffer& srcBuffer)
+#pragma region serialize
+        static void serialize(buffer* p_dstBuffer,const buffer& srcBuffer)
         {
-            dstBuffer->writeData((const char*)srcBuffer.m_data.data(), srcBuffer.size());
+            size_t srcSize = srcBuffer.size();
+
+            p_dstBuffer->writeData((const char*)& srcSize, sizeof(size_t));
+            p_dstBuffer->writeData((const char*)srcBuffer.m_data.data(), srcBuffer.size());
         }
+        static buffer& deserialize(buffer* p_srcBuffer)
+        {
+            buffer* p_dstBuffer = new buffer();
+
+            size_t size = *(size_t*)p_srcBuffer->readData(sizeof(size_t));
+
+            p_dstBuffer->writeData(p_srcBuffer->readData(size), size);
+
+            return *p_dstBuffer;
+        }
+#pragma endregion
 #pragma region read
         template<typename T>
         typename std::enable_if<std::is_trivially_copyable<T>::value,T>::type

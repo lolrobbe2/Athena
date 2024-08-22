@@ -1,4 +1,3 @@
-#define AT_C_API
 
 #include <athena.h>
 #include <iostream>
@@ -9,7 +8,6 @@ struct header
 };
 
 //represents new version
-
 struct header2
 {
 	const char test[13] = "helping hand";
