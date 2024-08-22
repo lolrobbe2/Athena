@@ -12,12 +12,15 @@ namespace athena
 	}
 	const char* buffer::readData(size_t size)
 	{
-		if (m_pointerPosition - size < 0) throw exceptions::indexOutOfBoundsException("m_pointerPosition - size <= 0 was true!");
+		if (m_pointerPosition >= m_data.size())
+			m_pointerPosition = 0;
+
+		if (m_pointerPosition + size > m_data.size()) throw exceptions::indexOutOfBoundsException("m_pointerPosition + size > m_data.size() was true!");
 
 		const char* data = (const char*) malloc(size);
 		
-		memcpy_s((void*)data, size, m_data.data() + m_pointerPosition - size, size);
-		m_pointerPosition = std::max((size_t)0, m_pointerPosition - size);
+		memcpy_s((void*)data, size, m_data.data() + m_pointerPosition, size);
+		m_pointerPosition = std::max((size_t)0, m_pointerPosition + size);
 		return data;
 	}
 	void buffer::setPointerPosition(size_t index)

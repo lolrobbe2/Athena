@@ -53,6 +53,8 @@ namespace athena
         template<typename T>
         typename std::enable_if<std::is_trivially_copyable<T>::value>::type
             writeObject(const T& object) {
+            size_t size = sizeof(T);
+            writeData((const char*)&size, sizeof(size_t));
             writeData(reinterpret_cast<const char*>(&object), sizeof(T));
         }
 
@@ -75,7 +77,17 @@ namespace athena
         template<typename T>
         typename std::enable_if<std::is_trivially_copyable<T>::value,T>::type
             readObject() {
-            return *(T*)readData(sizeof(T));
+            size_t structSize = sizeof(T);
+            size_t storedStructSize = *(size_t*)readData(sizeof(size_t));
+            if(structSize == storedStructSize) return *(T*)readData(structSize);
+
+            T* p_struct = (T*)malloc(structSize);
+            const char* p_src = readData(storedStructSize);
+            memcpy_s(p_struct, structSize,p_src , structSize);
+            
+            delete p_src;
+            return *p_struct;
+            
         }
 
         template<typename T>
@@ -84,7 +96,6 @@ namespace athena
             // Ensure that T has a serialize method
             static_assert(has_deserialize_method<T>::value,
                 "T must have a deserialize function with signature T& (athena::buffer*)");
-
             // Call the serialize method on the object
            return T::deserialize(this);
         }
