@@ -32,6 +32,7 @@
     <ClInclude Include="src\streams\compression\thirdparty\xxhash.h" />
     <ClInclude Include="src\streams\compression\compressedBuffer.h" />
     <ClInclude Include="src\exceptions\compressionException.h" />
+    <ClInclude Include="src\streams\writers\fileStreamWriter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\util\buffer.cpp">
@@ -42,5 +43,6 @@
     <ClCompile Include="src\streams\compression\thirdparty\xxhash.c" />
     <ClCompile Include="src\streams\compression\thirdparty\lz4hc.c" />
     <ClCompile Include="src\streams\compression\compressedBuffer.cpp" />
+    <ClCompile Include="src\streams\writers\fileStreamWriter.cpp" />
   </ItemGroup>
 </Project>
