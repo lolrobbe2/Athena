@@ -7,6 +7,8 @@ namespace athena
 	public:
 		compressedBuffer(buffer buffer);
 		size_t size();	
+		const char* data();
+
 		size_t contentSize();
 		buffer& decompress();
 	};

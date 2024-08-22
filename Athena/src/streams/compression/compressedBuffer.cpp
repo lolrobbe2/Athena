@@ -26,6 +26,10 @@ namespace athena
 	{
 		return m_data.size();
 	}
+	const char* compressedBuffer::data()
+	{
+		return (const char*)m_data.data();
+	}
 	size_t compressedBuffer::contentSize()
 	{
 		LZ4F_dctx* p_compressionContext = nullptr;
