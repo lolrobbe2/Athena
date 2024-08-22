@@ -19,4 +19,6 @@ int main()
 		buf.writeObject(header());
 	}
 	athena::compressedBuffer compressed { buf };
+
+	athena::buffer decompressedBuf = compressed.decompress();
 }

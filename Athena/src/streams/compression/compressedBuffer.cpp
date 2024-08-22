@@ -11,6 +11,7 @@ namespace athena
 		LZ4F_preferences_t preferences{};
 		preferences.compressionLevel = LZ4F_compressionLevel_max();
 		preferences.frameInfo = LZ4F_INIT_FRAMEINFO;
+		preferences.frameInfo.contentSize = buffer.size();
 		preferences.frameInfo.contentChecksumFlag = LZ4F_contentChecksumEnabled;
 
 		size_t size = LZ4F_compressFrame(m_data.data(), m_data.size(), buffer.data(), buffer.size(), &preferences);
@@ -27,10 +28,35 @@ namespace athena
 	}
 	size_t compressedBuffer::contentSize()
 	{
-		return ((LZ4F_frameInfo_t*)m_data.data())->contentSize;
+		LZ4F_dctx* p_compressionContext = nullptr;
+		LZ4F_createDecompressionContext(&p_compressionContext, LZ4F_getVersion());
+
+		LZ4F_frameInfo_t frameInfo = LZ4F_INIT_FRAMEINFO;
+
+		size_t srcSize = size();
+		LZ4F_getFrameInfo(p_compressionContext, &frameInfo, m_data.data(), &srcSize);
+
+		return frameInfo.contentSize;
 	}
-	size_t compressedBuffer::blockSize()
+	buffer& compressedBuffer::decompress()
 	{
-		return ((LZ4F_frameInfo_t*)m_data.data())->blockSizeID;
+		if (!m_data.size()) throw new exceptions::compressionException("m_data.size() was 0!");
+		LZ4F_dctx* p_compressionContext = nullptr;
+		LZ4F_createDecompressionContext(&p_compressionContext,LZ4F_getVersion());
+
+		
+
+		size_t dstSize = contentSize();
+		void* dstBuffer = malloc(dstSize);
+
+		size_t srcSize = size();
+		LZ4F_errorCode_t error = LZ4F_decompress(p_compressionContext, dstBuffer, &dstSize, data(), &srcSize, nullptr);
+
+		if (LZ4F_isError(error))
+			throw new exceptions::compressionException(LZ4F_getErrorName(error));
+
+		buffer* p_buffer = new buffer();
+		p_buffer->writeData((const char*)dstBuffer, dstSize);
+		return *p_buffer;
 	}
 }

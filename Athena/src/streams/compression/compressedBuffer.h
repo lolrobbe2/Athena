@@ -8,7 +8,7 @@ namespace athena
 		compressedBuffer(buffer buffer);
 		size_t size();	
 		size_t contentSize();
-		size_t blockSize();
+		buffer& decompress();
 	};
 }
 
