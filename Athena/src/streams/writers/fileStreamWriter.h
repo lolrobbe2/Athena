@@ -24,7 +24,7 @@ namespace athena
 		void writeObject(const T& object) { sections[sectionIndex].writeObject(object); };
 		template<typename T>
 		void writeArray(const std::vector<T>& vector) { sections[sectionIndex].writeArray(vector); };
-		void flush();
+		compressedBuffer flush();
 	private:
 		size_t sectionIndex = 0;
 

@@ -33,6 +33,7 @@
     <ClInclude Include="src\streams\compression\compressedBuffer.h" />
     <ClInclude Include="src\exceptions\compressionException.h" />
     <ClInclude Include="src\streams\writers\fileStreamWriter.h" />
+    <ClInclude Include="src\streams\readers\streamReader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\util\buffer.cpp">

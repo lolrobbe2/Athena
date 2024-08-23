@@ -43,7 +43,7 @@ namespace athena
 	{
 		sections[sectionIndex].writeData(data,size);
 	}
-	void fileStreamWriter::flush()
+	compressedBuffer fileStreamWriter::flush()
 	{
 		std::vector<std::future<athena::compressedBuffer>> compressedBufferFutures;
 		//TODO flush logic (compress all sections and write to buffer and recompress insid final frame!)
@@ -67,5 +67,6 @@ namespace athena
 
 	
 		m_stream.write(sectionsCompressedBuffer.data(), sectionsCompressedBuffer.size());
+		return sectionsCompressedBuffer;
 	}
 }
