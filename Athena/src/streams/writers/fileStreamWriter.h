@@ -13,7 +13,7 @@ namespace athena
 	public:
 		fileStreamWriter(std::filesystem::path& path);
 		fileStreamWriter(const fileStreamWriter&) = delete;
-		~fileStreamWriter();
+		virtual ~fileStreamWriter();
 		virtual bool isStreamGood() const;
 		virtual void setStreamPosition(size_t index);
 		virtual void previousStreamSection();
@@ -21,7 +21,7 @@ namespace athena
 		virtual size_t getStreamSectionCount() const;
 		virtual void writeData(const char* data, size_t size);
 		template<typename T>
-		void writeObject(const T& object) { sections[sectionIndex].writeObject(object) };
+		void writeObject(const T& object) { sections[sectionIndex].writeObject(object); };
 		template<typename T>
 		void writeArray(const std::vector<T>& vector) { sections[sectionIndex].writeArray(vector); };
 		void flush();

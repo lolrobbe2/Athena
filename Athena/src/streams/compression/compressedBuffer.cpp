@@ -22,7 +22,7 @@ namespace athena
 		m_data.resize(size);
 			
 	}
-	size_t compressedBuffer::size()
+	size_t compressedBuffer::size() const
 	{
 		return m_data.size();
 	}

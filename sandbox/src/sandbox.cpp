@@ -20,22 +20,18 @@ struct backHeader
 };
 int main()
 {
-	athena::buffer buf;
-	
 	std::vector<header> headers;
-	headers.resize(30);
+	headers.resize(100);
 
-	buf.writeArray(headers);
-	buf.writeObject(backHeader());
-	athena::compressedBuffer compressed { buf };
+	std::vector<header2> headers2;
+	headers2.resize(100);
+	std::cout << "Current working directory: " << std::filesystem::current_path() << std::endl;
 
-	athena::buffer decompressedBuf = compressed.decompress();
+	std::filesystem::path path = "./temp.bin";
 
-	std::vector<header2> headersDecompressed = decompressedBuf.readArray<header2>();
-
-	for (size_t i = 0; i < 30; i++)
-	{
-		std::cout << headersDecompressed[i].test << std::endl;
-	}
-	std::cout << decompressedBuf.readObject<backHeader>().head << std::endl;
+	athena::fileStreamWriter* streamWriter = new athena::fileStreamWriter(path);
+	streamWriter->writeArray(headers);
+	streamWriter->nextStreamSection();
+	streamWriter->writeArray(headers2);
+	streamWriter->flush();
 }

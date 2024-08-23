@@ -30,7 +30,7 @@ namespace athena
 	}
 	void fileStreamWriter::nextStreamSection()
 	{
-		if (sectionIndex + 1 > sections.size()) 
+		if (sectionIndex + 1 == sections.size()) 
 			sections.push_back(buffer());
 
 		sectionIndex++;
