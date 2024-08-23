@@ -1,12 +1,19 @@
 #include "fileStreamWriter.h"
 #include <exceptions/indexBoundsException.h>
+#include <future>
+#include <streams/compression/compressedBuffer.h>
 namespace athena 
 {
+
 	fileStreamWriter::fileStreamWriter(std::filesystem::path& path) :
 		m_path(path)
 	{
 		m_stream = std::ofstream(path, std::ofstream::out | std::ofstream::binary);
 		sections.resize(1);
+	}
+	fileStreamWriter::~fileStreamWriter()
+	{
+		m_stream.close();
 	}
 	bool fileStreamWriter::isStreamGood() const
 	{
@@ -38,6 +45,27 @@ namespace athena
 	}
 	void fileStreamWriter::flush()
 	{
+		std::vector<std::future<athena::compressedBuffer>> compressedBufferFutures;
 		//TODO flush logic (compress all sections and write to buffer and recompress insid final frame!)
+		   // Compress each buffer in a separate thread
+		for (const auto& section : sections)
+		{
+			compressedBufferFutures.push_back(std::async(std::launch::async, [&section]() {
+				return athena::compressedBuffer{ section }; // Compress buffer
+				}));
+		}
+
+		std::vector<compressedBuffer> compressedSections;
+		//Collect the compressed buffers.
+		for (auto& future : compressedBufferFutures)
+			compressedSections.push_back(future.get());
+
+		athena::buffer sectionsBuffer;
+		sectionsBuffer.writeArray(compressedSections);
+
+		athena::compressedBuffer sectionsCompressedBuffer{ sectionsBuffer };
+
+	
+		m_stream.write(sectionsCompressedBuffer.data(), sectionsCompressedBuffer.size());
 	}
 }

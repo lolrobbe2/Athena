@@ -13,6 +13,7 @@ namespace athena
 	public:
 		fileStreamWriter(std::filesystem::path& path);
 		fileStreamWriter(const fileStreamWriter&) = delete;
+		~fileStreamWriter();
 		virtual bool isStreamGood() const;
 		virtual void setStreamPosition(size_t index);
 		virtual void previousStreamSection();
