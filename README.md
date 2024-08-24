@@ -25,7 +25,7 @@ Athena is ideal for developers who need a high-performance, flexible solution fo
 to build run BUILD.bat or BUILD.sh.
 this just runs the python build.py script for convenience.
 ```
-[more info](BUILD.md)
+[more info](build.md)
 ## 2) example:
 # Athena File Stream Examples
 
