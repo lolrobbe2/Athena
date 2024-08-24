@@ -371,3 +371,4 @@ scripts/__pycache__/
 *.vcxproj
 *.sln
 vendor/
+/BUILD.md
