@@ -27,6 +27,7 @@ struct backHeader
 };
 int main()
 {
+	/*
 	std::vector<header> headers;
 	headers.resize(100);
 
@@ -36,9 +37,9 @@ int main()
 	std::vector<header3> headers3;
 	headers3.resize(100);
 	std::cout << "Current working directory: " << std::filesystem::current_path() << std::endl;
-
+	*/
 	std::filesystem::path path = "./temp.bin";
-
+	/*
 	athena::fileStreamWriter* streamWriter = new athena::fileStreamWriter(path);
 	streamWriter->writeArray(headers);
 	streamWriter->writeArray(headers3);
@@ -48,7 +49,7 @@ int main()
 	streamWriter->flush();
 
 	delete streamWriter;
-	
+	*/
 
 	athena::fileStreamReader* streamReader = new athena::fileStreamReader(path);
 
