@@ -33,6 +33,10 @@ namespace athena
 	{
 		return m_stream.good();
 	}
+	void fileStreamReader::setSectionPointerPosition(size_t index)
+	{
+		m_sections[m_sectionIndex]->setPointerPosition(index);
+	}
 	void fileStreamReader::setStreamPosition(size_t index)
 	{
 		if (index < 0 || index > m_sections.size()) throw new exceptions::indexOutOfBoundsException("streamPosition was out of bounds");

@@ -19,6 +19,7 @@ namespace athena
 		fileStreamReader(const fileStreamReader&) = delete;
 		~fileStreamReader();
 		virtual bool isStreamGood() const override;
+		virtual void setSectionPointerPosition(size_t index) override;
 		virtual void setStreamPosition(size_t index) override;
 		virtual void previousStreamSection() override;
 		virtual void nextStreamSection() override;

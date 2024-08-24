@@ -25,6 +25,10 @@ namespace athena
 	{
 		return m_stream.good();
 	}
+	void fileStreamWriter::setSectionPointerPosition(size_t index)
+	{
+		sections[sectionIndex].setPointerPosition(index);
+	}
 	void fileStreamWriter::setStreamPosition(size_t index)
 	{
 		if (index < 0 || index > sections.size()) throw new exceptions::indexOutOfBoundsException("streamPosition was out of bounds");

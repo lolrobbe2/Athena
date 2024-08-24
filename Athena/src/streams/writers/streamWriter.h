@@ -14,6 +14,7 @@ namespace athena
 	public:
 		virtual ~streamWriter() = default;
 		virtual bool isStreamGood() const = 0;
+		virtual void setStreamSectionPosition() = 0;
 		virtual void setStreamPosition(size_t index) = 0;
 		virtual void previousStreamSection() = 0;
 		virtual void nextStreamSection() =0;
