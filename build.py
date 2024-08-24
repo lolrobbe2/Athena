@@ -16,7 +16,9 @@ def api_type_mapping(value):
         "CPP-API":"CPP",
         "C":"C",
         "CPP":"CPP",
-        "COMBINED":"COMBINED"
+        "COMBINED":"COMBINED",
+        "none":"NONE",
+        "NONE":"NONE"
     }
     if value not in mapping:
         raise argparse.ArgumentTypeError(f"Invalid choice: {value} (choose from 'CPP', 'CPP-API', 'C', 'C-API,COMBINED')")
@@ -56,15 +58,16 @@ def main():
     parser.add_argument(
         "--api-type",
         type=api_type_mapping,
-        choices=['C-API','C','CPP-API','CPP','COMBINED'],
-        help="Choose a api type."   
-        
+        choices=['C-API','C','CPP-API','CPP','COMBINED','NONE','none'],
+        help="Choose a api type.",
+        default="NONE"  
     )
     parser.add_argument(
         "--lib-type",
         type=lib_type_mapping,
         choices=['SharedLib','Shared','StaticLib','Static'],
-        help="Choose a library type."   
+        help="Choose a library type.",
+        default="StaticLib"  
         
     )
     args = parser.parse_args()

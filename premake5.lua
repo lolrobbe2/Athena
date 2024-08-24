@@ -25,7 +25,8 @@ newoption {
     allowed = {
         { "C","C-API"},
         { "CPP","CPP-API" },
-        { "COMBINED"}
+        { "COMBINED"},
+        { "NONE","none"}
     }
 }
 
@@ -83,10 +84,18 @@ project "Athena"
             "AT_C_API"
         }
     end
+
     if _OPTIONS["api-type"] == "CPP" or _OPTIONS["api-type"] == "CPP-API" or _OPTIONS["api-type"] == "COMBINED" then
         defines
         {
             "AT_CPP_API"
+        }
+    end
+
+    if _OPTIONS["api-type"] == "NONE" or _OPTIONS["api-type"] == "none" then
+        defines
+        {
+            "AT_NO_API"
         }
     end
     
