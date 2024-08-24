@@ -30,7 +30,7 @@ namespace athena
     private:
         // Helper template to check if the serialize method exists and has the correct signature
         template <typename U>
-        static auto test(int) -> decltype(std::declval<U>().serialize(std::declval<athena::buffer*>()), std::declval<U&>(), std::true_type{});
+        static auto test(int) -> decltype(std::declval<U>().deserialize(std::declval<athena::buffer*>()), std::declval<U&>(), std::true_type{});
 
         template <typename>
         static std::false_type test(...);

@@ -6,6 +6,7 @@ namespace athena
 	{
 	public:
 		compressedBuffer(buffer buffer);
+        compressedBuffer(const char* data, size_t size);
         compressedBuffer() = default;
 		size_t size() const;	
 		const char* data();
@@ -19,7 +20,7 @@ namespace athena
             p_dstBuffer->writeData((const char*)&srcSize, sizeof(size_t));
             p_dstBuffer->writeData((const char*)srcBuffer.m_data.data(), srcBuffer.size());
         }
-        static compressedBuffer& deserialize(buffer* p_srcBuffer)
+        static compressedBuffer& deserialize(athena::buffer* p_srcBuffer)
         {
             compressedBuffer* p_dstBuffer = new compressedBuffer();
 

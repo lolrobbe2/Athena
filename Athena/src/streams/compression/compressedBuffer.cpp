@@ -22,6 +22,10 @@ namespace athena
 		m_data.resize(size);
 			
 	}
+	compressedBuffer::compressedBuffer(const char* data, size_t size)
+	{
+		writeData(data, size);
+	}
 	size_t compressedBuffer::size() const
 	{
 		return m_data.size();

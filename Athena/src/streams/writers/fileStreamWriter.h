@@ -2,9 +2,11 @@
 #ifndef FILE_STREAM_WRITER
 #define FILE_STREAM_WRITER
 #include <streams/writers/streamWriter.h>
+
 #include <iostream>
 #include <fstream>
 #include <filesystem>
+
 #include <util/buffer.h>
 namespace athena
 {
@@ -14,17 +16,17 @@ namespace athena
 		fileStreamWriter(std::filesystem::path& path);
 		fileStreamWriter(const fileStreamWriter&) = delete;
 		virtual ~fileStreamWriter();
-		virtual bool isStreamGood() const;
-		virtual void setStreamPosition(size_t index);
-		virtual void previousStreamSection();
-		virtual void nextStreamSection();
-		virtual size_t getStreamSectionCount() const;
-		virtual void writeData(const char* data, size_t size);
+		virtual bool isStreamGood() const override;
+		virtual void setStreamPosition(size_t index) override;
+		virtual void previousStreamSection() override;
+		virtual void nextStreamSection() override;
+		virtual size_t getStreamSectionCount() const override;
+		virtual void writeData(const char* data, size_t size) override;
 		template<typename T>
 		void writeObject(const T& object) { sections[sectionIndex].writeObject(object); };
 		template<typename T>
 		void writeArray(const std::vector<T>& vector) { sections[sectionIndex].writeArray(vector); };
-		compressedBuffer flush();
+		virtual compressedBuffer flush();
 	private:
 		size_t sectionIndex = 0;
 

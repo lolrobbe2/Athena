@@ -34,6 +34,8 @@
     <ClInclude Include="src\exceptions\compressionException.h" />
     <ClInclude Include="src\streams\writers\fileStreamWriter.h" />
     <ClInclude Include="src\streams\readers\streamReader.h" />
+    <ClInclude Include="src\streams\readers\fileStreamReader.h" />
+    <ClInclude Include="src\exceptions\badStreamException.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\util\buffer.cpp">
@@ -45,5 +47,6 @@
     <ClCompile Include="src\streams\compression\thirdparty\lz4hc.c" />
     <ClCompile Include="src\streams\compression\compressedBuffer.cpp" />
     <ClCompile Include="src\streams\writers\fileStreamWriter.cpp" />
+    <ClCompile Include="src\streams\readers\fileStreamReader.cpp" />
   </ItemGroup>
 </Project>

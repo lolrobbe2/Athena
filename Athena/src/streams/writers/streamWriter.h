@@ -1,7 +1,8 @@
 #pragma once
 #ifndef STREAM_WRITER
 #define STREAM_WRITER
-#include <vector>
+#include <streams/compression/compressedBuffer.h>
+
 namespace athena 
 {	/** 
 	* @brief this is the interface for all streamWriters
@@ -23,7 +24,7 @@ namespace athena
 		template<typename T>
 		void writeArray(const std::vector<T>& vector) {};
 		operator bool() const { return isStreamGood(); }
-		virtual void flush() = 0;
+		virtual compressedBuffer flush() = 0;
 	};
 }
 #endif // !STREAM_WRITER

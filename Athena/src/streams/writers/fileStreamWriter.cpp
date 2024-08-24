@@ -1,5 +1,7 @@
 #include "fileStreamWriter.h"
 #include <exceptions/indexBoundsException.h>
+#include <exceptions/badStreamException.h>
+
 #include <future>
 #include <streams/compression/compressedBuffer.h>
 namespace athena 
@@ -9,6 +11,10 @@ namespace athena
 		m_path(path)
 	{
 		m_stream = std::ofstream(path, std::ofstream::out | std::ofstream::binary);
+
+		if (!m_stream.good()) throw new exceptions::badStreamException("writer stream was bad!");
+		if (!m_stream.is_open()) throw new exceptions::badStreamException("writer stream was not open!");
+
 		sections.resize(1);
 	}
 	fileStreamWriter::~fileStreamWriter()
