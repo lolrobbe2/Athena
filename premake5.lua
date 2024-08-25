@@ -76,7 +76,7 @@ project "Athena"
     objdir("%{wks.location}/bin-int/" .. outputdir .. "/x64/%{prj.name}")
     files
     {
-        "%{prj.location}/src/**.c"
+        "%{prj.location}/src/**.c",
         "%{prj.location}/src/**.h",
         "%{prj.location}/src/**.hpp",
         "%{prj.location}/src/**.cpp",
