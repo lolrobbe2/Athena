@@ -63,8 +63,9 @@ end
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
-IncludeDir["Athena"] =  "%{wks.location}/Athena/src"
-IncludeDir["LZ4"] = "%{wks.location}/Athena/src/thirdparty/LZ4"
+IncludeDir["Athena"] =  "%{prj.location}/src"
+IncludeDir["LZ4"] = "%{prj.location}/src/thirdparty/LZ4"
+
 
 group"core"
 project "Athena"
@@ -75,9 +76,9 @@ project "Athena"
     objdir("%{wks.location}/bin-int/" .. outputdir .. "/x64/%{prj.name}")
     files
     {
-        "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.hpp",
-        "%{prj.name}/src/**.cpp",
+        "%{prj.location}/src/**.h",
+        "%{prj.location}/src/**.hpp",
+        "%{prj.location}/src/**.cpp",
     }
     includedirs
     {
@@ -148,13 +149,18 @@ project "sandbox"
     objdir("%{wks.location}/bin-int/" .. outputdir .. "/x64/%{prj.name}")
     includedirs
     {
-        "%{IncludeDir.Athena}"
+        "../Athena/Athena/src"
     }
     links
     {
         "Athena"
     }
-
+    files
+    {
+        "%{prj.location}/src/**.h",
+        "%{prj.location}/src/**.hpp",
+        "%{prj.location}/src/**.cpp",
+    }
     filter "system:windows"
         cppdialect "c++20"
         systemversion "latest"
