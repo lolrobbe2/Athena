@@ -157,7 +157,7 @@ project "sandbox"
     }
     files
     {
-        "%{prj.location}/src/**.c"
+        "%{prj.location}/src/**.c",
         "%{prj.location}/src/**.h",
         "%{prj.location}/src/**.hpp",
         "%{prj.location}/src/**.cpp",
