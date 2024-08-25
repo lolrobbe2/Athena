@@ -11,6 +11,12 @@ newoption {
 }
 
 newoption {
+    trigger = "project-include",
+    description = "disable seperate project workspace",
+    category    = "Build Options"
+}
+
+newoption {
     trigger     = "lib-type",
     value       = "LIB-TYPE",
     description = "Choose a library type Shared or static",
@@ -42,7 +48,7 @@ flags
 }
 
 
-
+if not _OPTIONS["project-include"] then
 startproject "sandbox"
 workspace "Athena"
     architecture "x64"
@@ -53,10 +59,9 @@ workspace "Athena"
         "release",
         "distribution"
     }
-    
+end
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
-buildmessage("$(VULKAN_SDK)/Include")
 IncludeDir = {}
 IncludeDir["Athena"] =  "%{wks.location}/Athena/src"
 IncludeDir["LZ4"] = "%{wks.location}/Athena/src/thirdparty/LZ4"
