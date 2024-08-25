@@ -5,6 +5,12 @@ newoption {
 }
 
 newoption {
+    trigger = "no-sandbox",
+    description = "disable sandbox project",
+    category    = "Build Options"
+}
+
+newoption {
     trigger     = "lib-type",
     value       = "LIB-TYPE",
     description = "Choose a library type Shared or static",
@@ -126,7 +132,7 @@ project "Athena"
     if _OPTIONS["enable-WSL"] then
         toolchainversion "wsl2"
     end
-
+if not _OPTIONS["no-sandbox"] then
 group"SANDBOX"
 project "sandbox"
     location "sandbox"
@@ -171,3 +177,4 @@ project "sandbox"
     if _OPTIONS["enable-WSL"] then
         toolchainversion "wsl2"
     end
+end

@@ -4,7 +4,8 @@
 #include <streams/compression/compressedBuffer.h>
 
 namespace athena 
-{	/** 
+{	
+	/** 
 	* @brief this is the interface for all streamWriters
 	* sections is the collection of uncompressed athena::buffer objects to write to!
 	* when the streamWriter is flushed all of them get transformed into athena::compressedBuffer objects.
@@ -14,7 +15,7 @@ namespace athena
 	public:
 		virtual ~streamWriter() = default;
 		virtual bool isStreamGood() const = 0;
-		virtual void setStreamSectionPosition() = 0;
+		virtual void setSectionPointerPosition(size_t index) = 0;
 		virtual void setStreamPosition(size_t index) = 0;
 		virtual void previousStreamSection() = 0;
 		virtual void nextStreamSection() =0;
