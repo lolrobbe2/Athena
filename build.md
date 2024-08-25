@@ -39,3 +39,13 @@ Here are the options you can use with the `build.py` script:
   - `StaticLib` or `Static` (Default)
 
 These options provide flexibility in configuring the build process according to your specific needs.
+
+## use inside another project:
+to use the libary in another project using [**`premake5`**](https://premake.github.io/) you just need to do 2 things:
+
+1) add an [**`include directive`**](https://premake.github.io/docs/include/) to your own premake5.lua script
+
+2) add a [**`link`**](https://premake.github.io/docs/links/) to the library.
+3) (optional) add the athena folder to your [**`includedirs`**](https://premake.github.io/docs/includedirs/).
+
+all the build.py [**`build options`**](#build-options) except for --force-premake & --force-python can be used when running premake5 to
