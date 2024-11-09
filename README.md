@@ -18,8 +18,9 @@
  maintain compatibility across different versions, as long as changes (such as adding or removing fields) are performed in a stack-like order. This compatibility is crucial for maintaining data integrity and accessibility over time as the data structures evolve.
 
 Athena is ideal for developers who need a high-performance, flexible solution for managing binary data in C++, with robust support for various data types, parallel compression for improved performance, and backward compatibility.
-
-
+5. **No Need for external LZ4 dependancies **
+   Athena contains the neccesary code to compress/decompress using LZ4 on the fly without any external library's or programs!
+   in other words install and go!
 ## 1) build
 ```
 to build run BUILD.bat or BUILD.sh.
