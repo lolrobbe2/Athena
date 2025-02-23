@@ -20,6 +20,9 @@ namespace athena
 		compressedBuffer compressedSections{ data,size }; //all compressed sections are compressed togheter in a single buffer;
 
 		buffer sectionsBuffer = compressedSections.decompress();
+
+		delete[] data;
+
 		m_compressedSections = sectionsBuffer.readArray<compressedBuffer>();
 		m_sections.resize(m_compressedSections.size(), nullptr);
 	}

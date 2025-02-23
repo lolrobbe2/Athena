@@ -55,6 +55,8 @@ namespace athena
 	}
 	compressedBuffer fileStreamWriter::flush()
 	{
+		//TODO use condition variable!
+
 		std::vector<std::future<athena::compressedBuffer>> compressedBufferFutures;
 		//TODO flush logic (compress all sections and write to buffer and recompress insid final frame!)
 		   // Compress each buffer in a separate thread
