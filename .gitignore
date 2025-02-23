@@ -372,3 +372,7 @@ scripts/__pycache__/
 *.sln
 vendor/
 
+/.premake/Premake 5.0-beta4/windows
+/.premake/Premake 5.0-beta4/windows/premake5.exe
+/.vscode
+/Athena/Athena.vcxproj.filters

@@ -12,8 +12,8 @@ namespace athena
 	{
 		m_stream = std::ofstream(path, std::ofstream::out | std::ofstream::binary);
 
-		if (!m_stream.good()) throw new exceptions::badStreamException("writer stream was bad!");
-		if (!m_stream.is_open()) throw new exceptions::badStreamException("writer stream was not open!");
+		if (!m_stream.good()) throw exceptions::badStreamException("writer stream was bad!");
+		if (!m_stream.is_open()) throw exceptions::badStreamException("writer stream was not open!");
 
 		sections.resize(1);
 	}
@@ -31,7 +31,7 @@ namespace athena
 	}
 	void fileStreamWriter::setStreamPosition(size_t index)
 	{
-		if (index < 0 || index > sections.size()) throw new exceptions::indexOutOfBoundsException("streamPosition was out of bounds");
+		if (index < 0 || index > sections.size()) throw exceptions::indexOutOfBoundsException("streamPosition was out of bounds");
 		sectionIndex = index;
 	}
 	void fileStreamWriter::previousStreamSection()

@@ -17,7 +17,7 @@ namespace athena
 		size_t size = LZ4F_compressFrame(m_data.data(), m_data.size(), buffer.data(), buffer.size(), &preferences);
 
 		if (LZ4F_isError(size))
-			throw new exceptions::compressionException(LZ4F_getErrorName(size));
+			throw exceptions::compressionException(LZ4F_getErrorName(size));
 
 		m_data.resize(size);
 			
@@ -48,7 +48,7 @@ namespace athena
 	}
 	buffer& compressedBuffer::decompress()
 	{
-		if (!m_data.size()) throw new exceptions::compressionException("m_data.size() was 0!");
+		if (!m_data.size()) throw exceptions::compressionException("m_data.size() was 0!");
 		LZ4F_dctx* p_compressionContext = nullptr;
 		LZ4F_createDecompressionContext(&p_compressionContext,LZ4F_getVersion());
 
@@ -61,7 +61,7 @@ namespace athena
 		LZ4F_errorCode_t error = LZ4F_decompress(p_compressionContext, dstBuffer, &dstSize, data(), &srcSize, nullptr);
 
 		if (LZ4F_isError(error))
-			throw new exceptions::compressionException(LZ4F_getErrorName(error));
+			throw exceptions::compressionException(LZ4F_getErrorName(error));
 
 		buffer* p_buffer = new buffer();
 		p_buffer->writeData((const char*)dstBuffer, dstSize);

@@ -25,6 +25,6 @@ namespace athena
 	}
 	void buffer::setPointerPosition(size_t index)
 	{
-		if (m_pointerPosition + index > m_data.size()) throw new exceptions::indexOutOfBoundsException("index was out of bounds"); //TODO custom exception with print statement
+		if (m_pointerPosition + index > m_data.size()) throw exceptions::indexOutOfBoundsException("index was out of bounds"); //TODO custom exception with print statement
 	}
 }
